@@ -6,4 +6,4 @@ os.environ['CMAKE_ARGS'] = "-DLLAMA_CUBLAS=on"
 os.environ['FORCE_CMAKE'] = "1"
 
 # Run pip install for requirements.txt
-subprocess.run(["pip", "install", "-r", "requirements.txt"], check=True)
+subprocess.run(["pip", "install", "-r", "requirements.txt", "-q"], check=True)
