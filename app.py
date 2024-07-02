@@ -157,3 +157,7 @@ def process_query(query):
 def query(query: Query):
     return process_query(query)
 
+
+if __name__ == '__main__':
+    import uvicorn
+    uvicorn.run(app, port=8000)
