@@ -63,10 +63,12 @@ def initialize_components(query):
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=100)
         all_splits = text_splitter.split_documents(data)
         
-        if vectorstore:
+        try:
             vectorstore.delete_collection()
             del vectorstore
-        vectorstore = Chroma.from_documents(documents=all_splits, embedding=embed_model)
+            vectorstore = Chroma.from_documents(documents=all_splits, embedding=embed_model)
+        except:
+            vectorstore = Chroma.from_documents(documents=all_splits, embedding=embed_model)
         
         
         # Initialize retriever
