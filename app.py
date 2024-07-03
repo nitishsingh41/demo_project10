@@ -15,6 +15,7 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+#load embedding model
 embed_model_id= "Alibaba-NLP/gte-large-en-v1.5"
 device='cuda'
 embed_model = HuggingFaceEmbeddings(
@@ -23,8 +24,10 @@ embed_model = HuggingFaceEmbeddings(
     encode_kwargs={'device': device},
 )
 
+#download llama2 7B 
 os.system("wget https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q8_0.gguf?download=true -O llama-2-7b-chat.Q8_0.gguf")
 
+#initialize llm model using llama_cpp
 llm = LlamaCpp(
     model_path="./llama-2-7b-chat.Q8_0.gguf",
     n_gpu_layers=-1,
@@ -37,7 +40,7 @@ llm = LlamaCpp(
 
 
 app = FastAPI()
-web_page_link_old = ""  # Initialize the global variable
+web_page_link_old = ""  
 history_aware_retriever = None
 question_answer_chain = None
 rag_chain = None
