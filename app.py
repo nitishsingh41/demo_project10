@@ -47,6 +47,7 @@ rag_chain = None
 store = {}
 conversational_rag_chain = None
 
+#input data schema validation using pydantic basemodel
 class Query(BaseModel):
     input: str
     session_id: str
