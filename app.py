@@ -51,6 +51,8 @@ class Query(BaseModel):
     input: str
     session_id: str
     web_page_link: str
+
+#funtion to index webpage and make chat history based RAG chatbot
 def initialize_components(query):
     global web_page_link_old,vectorstore, history_aware_retriever, question_answer_chain, rag_chain, conversational_rag_chain, store
     
@@ -141,7 +143,7 @@ def initialize_components(query):
     else:
         print("Using existing components for web page link:", web_page_link)
     
-
+#funtion to run with input
 def process_query(query):
     if query.web_page_link == "":
         return {"answer": "please put webpage link"}
@@ -158,11 +160,12 @@ def process_query(query):
     print("Response:", response)
     return {"answer": response["answer"]}
 
+#POST method
 @app.post("/query")
 def query(query: Query):
     return process_query(query)
 
-
+#run api using uvicorn
 if __name__ == '__main__':
     import uvicorn
     uvicorn.run(app, port=8000)
