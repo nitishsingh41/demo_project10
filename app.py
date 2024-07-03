@@ -122,7 +122,7 @@ def initialize_components(query):
         
         question_answer_chain = create_stuff_documents_chain(llm, qa_prompt)
 
-        # Initialize rag_chain
+        # Initialize rag_chain which uses history_aware_retriever to answer the question
         rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
         
         # Initialize store
