@@ -38,7 +38,7 @@ llm = LlamaCpp(
 
 
 
-#initialize fastapi app and variables
+#api initialize fastapi app and variables
 app = FastAPI()
 web_page_link_old = ""  
 history_aware_retriever = None
