@@ -15,31 +15,12 @@ from langchain_core.runnables.history import RunnableWithMessageHistory
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-#load embedding model
-embed_model_id= "Alibaba-NLP/gte-large-en-v1.5"
-device='cuda'
-embed_model = HuggingFaceEmbeddings(
-    model_name=embed_model_id,
-    model_kwargs={'device': device,'trust_remote_code':True},
-    encode_kwargs={'device': device},
-)
 
-#download llama2 7B 
-os.system("wget https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q8_0.gguf?download=true -O llama-2-7b-chat.Q8_0.gguf")
-
-#initialize llm model using llama_cpp
-llm = LlamaCpp(
-    model_path="./llama-2-7b-chat.Q8_0.gguf",
-    n_gpu_layers=-1,
-    n_ctx=4000,
-    temperature=0.1,
-    verbose=False,
-)
 
 
 
 #api initialize fastapi app and variables
-app = FastAPI()
+#app = FastAPI()
 web_page_link_old = ""  
 history_aware_retriever = None
 question_answer_chain = None
@@ -47,14 +28,12 @@ rag_chain = None
 store = {}
 conversational_rag_chain = None
 
-#input data schema validation using pydantic basemodel
-class Query(BaseModel):
-    input: str
-    session_id: str
-    web_page_link: str
+
 
 #funtion to index webpage and make chat history based RAG chatbot
-def initialize_components(query):
+def initialize_components(input: str
+    session_id: str
+    web_page_link: str):
     global web_page_link_old,vectorstore, history_aware_retriever, question_answer_chain, rag_chain, conversational_rag_chain, store
     
     web_page_link = query.web_page_link
