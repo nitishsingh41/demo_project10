@@ -169,7 +169,7 @@ def initialize_components(input: str, session_id: str, source_path: str, source_
         print("Using existing components for web page link:", web_page_link)
     
 #funtion to run with input
-def process_query(input: str, session_id='abc123', source_path:'./resume.pdf', source_type='pdf'):
+def process_query(input: str, session_id='abc123', source_path='./resume.pdf', source_type='pdf'):
     if source_path == "":
         return {"answer": "please provide document path"}
     
