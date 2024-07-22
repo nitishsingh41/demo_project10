@@ -13,6 +13,27 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 
+#load embedding model
+embed_model_id= "Alibaba-NLP/gte-large-en-v1.5"
+device='cuda'
+embed_model = HuggingFaceEmbeddings(
+    model_name=embed_model_id,
+    model_kwargs={'device': device,'trust_remote_code':True},
+    encode_kwargs={'device': device},
+)
+
+#download llama2 7B 
+os.system("wget https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q8_0.gguf?download=true -O llama-2-7b-chat.Q8_0.gguf")
+
+#initialize llm model using llama_cpp
+llm = LlamaCpp(
+    model_path="./llama-2-7b-chat.Q8_0.gguf",
+    n_gpu_layers=-1,
+    n_ctx=4000,
+    temperature=0.1,
+    verbose=False,
+)
+
 
 def ingest_personal_data(source_type, source_path):
     """
