@@ -64,7 +64,7 @@ def initialize_components(input: str, session_id: str, source_path: str, source_
     web_page_link = source_path
     
     if web_page_link != web_page_link_old:
-        print("Initializing components for new web page link:", web_page_link)
+        print("Initializing components for document link:", web_page_link)
         web_page_link_old = web_page_link
         
         # Initialize vectorstore
