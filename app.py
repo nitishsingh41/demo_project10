@@ -2,7 +2,7 @@ import os
 from torch import cuda
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain_community.llms import LlamaCpp
-from langchain.document_loaders import WebBaseLoader
+from langchain.document_loaders import TextLoader, PDFLoader, WebBaseLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain.chains import create_history_aware_retriever
@@ -12,10 +12,37 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
-from fastapi import FastAPI
-from pydantic import BaseModel
 
 
+def ingest_personal_data(source_type, source_path):
+    """
+    Ingest personal data from various sources using LangChain.
+    
+    Args:
+        source_type (str): Type of data source ('text', 'pdf', or 'website')
+        source_path (str): Path to the data source (file path or URL)
+    
+    Returns:
+        list: List of documents containing the ingested data
+    """
+    if source_type == 'text':
+        loader = TextLoader(source_path)
+        data = loader.load()
+
+    
+    elif source_type == 'pdf':
+        loader = PDFLoader(source_path)
+        data = loader.load()
+
+    
+    elif source_type == 'website':
+        loader = WebBaseLoader(source_path)
+        data = loader.load()
+    
+    else:
+        raise ValueError("Invalid source_type. Choose 'text', 'pdf', or 'website'.")
+    
+    return data
 
 
 
@@ -31,20 +58,17 @@ conversational_rag_chain = None
 
 
 #funtion to index webpage and make chat history based RAG chatbot
-def initialize_components(input: str
-    session_id: str
-    web_page_link: str):
+def initialize_components(input: str, session_id: str, source_path: str, source_type: str):
     global web_page_link_old,vectorstore, history_aware_retriever, question_answer_chain, rag_chain, conversational_rag_chain, store
     
-    web_page_link = query.web_page_link
+    web_page_link = source_path
     
     if web_page_link != web_page_link_old:
         print("Initializing components for new web page link:", web_page_link)
         web_page_link_old = web_page_link
         
         # Initialize vectorstore
-        loader = WebBaseLoader(web_page_link_old)
-        data = loader.load()
+        data=ingest_personal_data(source_type, source_path)
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=100)
         all_splits = text_splitter.split_documents(data)
         
@@ -124,28 +148,19 @@ def initialize_components(input: str
         print("Using existing components for web page link:", web_page_link)
     
 #funtion to run with input
-def process_query(query):
-    if query.web_page_link == "":
-        return {"answer": "please put webpage link"}
+def process_query(input: str, session_id='abc123', source_path:'./resume.pdf', source_type='pdf'):
+    if source_path == "":
+        return {"answer": "please provide document path"}
     
-    initialize_components(query)
+    initialize_components(input,session_id,source_path,source_type)
     
     response = conversational_rag_chain.invoke(
-        {"input": query.input},
+        {"input": input},
         config={
-            "configurable": {"session_id": query.session_id}
+            "configurable": {"session_id":session_id}
         }
     )
 
     print("Response:", response)
     return {"answer": response["answer"]}
 
-#POST method
-@app.post("/query")
-def query(query: Query):
-    return process_query(query)
-
-#run api using uvicorn
-if __name__ == '__main__':
-    import uvicorn
-    uvicorn.run(app, port=8000)
