@@ -2,7 +2,7 @@ import os
 from torch import cuda
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain_community.llms import LlamaCpp
-from langchain_community.document_loaders import TextLoader, PDFLoader, WebBaseLoader
+from langchain_community.document_loaders import TextLoader, PyPDFLoader, WebBaseLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain.chains import create_history_aware_retriever
@@ -52,7 +52,7 @@ def ingest_personal_data(source_type, source_path):
 
     
     elif source_type == 'pdf':
-        loader = PDFLoader(source_path)
+        loader = PyPDFLoader(source_path)
         data = loader.load()
 
     
