@@ -4,7 +4,6 @@ from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain_community.llms import LlamaCpp
 from langchain_community.document_loaders import TextLoader, PyPDFLoader, WebBaseLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-
 from langchain.chains import create_history_aware_retriever
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.chains import create_retrieval_chain
@@ -13,11 +12,6 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 
-import subprocess
-import sys
-subprocess.check_call(
-    [sys.executable, "-m", "pip", "install", "pysqlite3-binary"]
-)
 __import__("pysqlite3")
 sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
 from langchain_chroma import Chroma
@@ -32,15 +26,16 @@ embed_model = HuggingFaceEmbeddings(
 )
 
 #download llama2 7B 
-os.system("wget https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q8_0.gguf?download=true -O llama-2-7b-chat.Q8_0.gguf")
+os.system("wget -q https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q8_0.gguf?download=true -O llm.gguf")
 
 #initialize llm model using llama_cpp
 llm = LlamaCpp(
-    model_path="./llama-2-7b-chat.Q8_0.gguf",
+    model_path="./llm.gguf",
     n_gpu_layers=-1,
     n_ctx=4000,
     temperature=0.1,
     verbose=False,
+    max_tokens=100
 )
 
 
@@ -99,7 +94,7 @@ def initialize_components(input: str, session_id: str, source_path: str, source_
         
         # Initialize vectorstore
         data=ingest_personal_data(source_type, source_path)
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=100)
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=25)
         all_splits = text_splitter.split_documents(data)
         
         try:
@@ -115,13 +110,13 @@ def initialize_components(input: str, session_id: str, source_path: str, source_
         
         # Initialize history_aware_retriever
         contextualize_q_system_prompt = (
-            "Given a chat history and the latest user question "
-            "which might reference context in the chat history, "
+            "Given a chat history and the latest user question, "
             "formulate a standalone question which can be understood "
             "without the chat history. Do NOT answer the question, "
             "just reformulate it if needed and otherwise return it as is."
         )
-        
+
+    
         contextualize_q_prompt = ChatPromptTemplate.from_messages(
             [
                 ("system", contextualize_q_system_prompt),
@@ -136,11 +131,12 @@ def initialize_components(input: str, session_id: str, source_path: str, source_
 
         # Initialize question_answer_chain
         system_prompt = (
-            "You are an assistant for question-answering tasks. "
+            "You are an assistant which gives precise answer."
             "Strictly use the following pieces of retrieved context to answer "
             "the question. If you don't know the answer, say that you "
-            "don't know. Use three sentences maximum and keep the "
-            "answer concise and short."
+            "don't know. Keep the "
+            "answer concise and very short and don't provide extra details."
+            "Don't make additional queries or generate unsupported inferences."
             "\n\n"
             "{context}"
         )
@@ -191,6 +187,7 @@ def process_query(input: str, session_id='abc123', source_path='./resume.pdf', s
         }
     )
 
-    print("Response:", response)
+    #print("Response:", response)
     return {"answer": response["answer"]}
+
 
