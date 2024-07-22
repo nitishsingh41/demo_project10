@@ -4,7 +4,7 @@ from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain_community.llms import LlamaCpp
 from langchain_community.document_loaders import TextLoader, PyPDFLoader, WebBaseLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_chroma import Chroma
+
 from langchain.chains import create_history_aware_retriever
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.chains import create_retrieval_chain
@@ -12,6 +12,15 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
+
+import subprocess
+import sys
+subprocess.check_call(
+    [sys.executable, "-m", "pip", "install", "pysqlite3-binary"]
+)
+__import__("pysqlite3")
+sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
+from langchain_chroma import Chroma
 
 #load embedding model
 embed_model_id= "Alibaba-NLP/gte-large-en-v1.5"
