@@ -1,5 +1,5 @@
-import os,sys
-from torch import cuda
+import os
+import sys
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain_community.llms import LlamaCpp
 from langchain_community.document_loaders import TextLoader, PyPDFLoader, WebBaseLoader
