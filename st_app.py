@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 from io import BytesIO
-from app import process_query
+from chatbot import process_query
 
 st.title("Candidate Chatbot")
 
