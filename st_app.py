@@ -28,11 +28,12 @@ else:  # website
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Initialize source_path
-source_path = None
+
+
 
 # Process the upload and start chat when the sidebar button is clicked
 if st.sidebar.button("Upload and Start Chat"):
+    source_path = None
     if source_type == 'pdf':
         if uploaded_pdf is not None:
             with open("uploaded_document.pdf", "wb") as f:
