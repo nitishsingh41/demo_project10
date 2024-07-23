@@ -28,6 +28,9 @@ else:  # website
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
+# Initialize source_path
+source_path = None
+
 # Process the upload and start chat when the sidebar button is clicked
 if st.sidebar.button("Upload and Start Chat"):
     if source_type == 'pdf':
@@ -39,7 +42,6 @@ if st.sidebar.button("Upload and Start Chat"):
             st.session_state.chat_active = True  # Activate chat
         else:
             st.error("Please upload a PDF file.")
-            source_path = None
     elif source_type == 'txt':
         if uploaded_txt is not None:
             with open("uploaded_document.txt", "wb") as f:
@@ -49,7 +51,6 @@ if st.sidebar.button("Upload and Start Chat"):
             st.session_state.chat_active = True  # Activate chat
         else:
             st.error("Please upload a TXT file.")
-            source_path = None
     else:  # website
         if web_url:
             source_path = web_url
@@ -57,7 +58,6 @@ if st.sidebar.button("Upload and Start Chat"):
             st.session_state.chat_active = True  # Activate chat
         else:
             st.error("Please enter a valid website URL.")
-            source_path = None
 
 # Display chat messages from history if chat is active
 if "chat_active" in st.session_state and st.session_state.chat_active:
@@ -72,13 +72,20 @@ if "chat_active" in st.session_state and st.session_state.chat_active:
         st.chat_message("user").markdown(prompt)
         # Add user message to chat history
         st.session_state.messages.append({"role": "user", "content": prompt})
-        if source_type=='txt':
-          source_type='text'
-        # Simulate a response (replace with actual processing logic)
-        st.write('sp:',source_path,'st:',source_type)
-        response = process_query(input=prompt,source_path=source_path, source_type=source_type)
-        # Display assistant response in chat message container
-        with st.chat_message("assistant"):
-            st.markdown(response)
-        # Add assistant response to chat history
-        st.session_state.messages.append({"role": "assistant", "content": response})
+        
+        # Ensure source_type is correctly set for processing
+        if source_type == 'txt':
+            source_type = 'text'
+        
+        # Check if source_path is defined before using it
+        if source_path is not None:
+            # Simulate a response (replace with actual processing logic)
+            st.write('sp:', source_path, 'st:', source_type)
+            response = process_query(input=prompt, source_path=source_path, source_type=source_type)
+            # Display assistant response in chat message container
+            with st.chat_message("assistant"):
+                st.markdown(response)
+            # Add assistant response to chat history
+            st.session_state.messages.append({"role": "assistant", "content": response})
+        else:
+            st.error("No valid source available for processing.")
