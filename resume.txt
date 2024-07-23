@@ -1,0 +1,91 @@
+﻿________________
+
+
+OBJECTIVE
+Aspiring for a creative and challenging work opportunity to enhance my technical skills, knowledge and explore the growth in your reputed organization.
+
+
+EDUCATION
+* Indian Institute of Technology (BHU), Varanasi                                                                                  July2014–June2018
+B.Tech in Mechanical Engineering 
+
+
+SKILLS AND INTERESTS
+Languages: Python, R, C++
+Technologies: OOPS, Tensorflow, Git, MATLAB, Pandas, Numpy, Pytorch, OpenCV, Linux, GCP, ONNX, Streamlit, Langchain, AWS EC2, FastAPI, Retrieval augmented generation(RAG), Docker
+Courses: Topics in Mathematics with Applications in Finance(MIT OCW)(Derivative Pricing, VaR, Monte Carlo SImulation, Stress Testing, Volatility Modelling), Stochastic Calculus, Introduction to Financial Engineering and risk management(Coursera), Neural Networks and Deep Learning(Coursera), Data Structure and Algorithms,  Practical Deep Learning for Coders(Fast.ai), Data Analysis using Pyspark(Coursera), Generative AI with Large Language Models(Coursera)
+
+
+WORK EXPERIENCE
+Model Risk Quant at Acuity Knowledge Partners (formerly known as Moody’s Analytics) from May 2023 to Current
+Data Scientist at AbInbev from Jan 2022 to May 2023
+Data Scientist at Karza Technologies from May 2020 to Jan 2022
+Intern- Data Scientist at Karza Technologies from Jan 2020 to April 2020
+Associate Consultant at Larsen & Toubro Infotech Ltd. (L&T Infotech) from Jul 2018 to Jan 2020
+
+
+PROJECTS
+  Model Validation                                                                 Acuity Knowledge Partners                            May2023-Current                                                           
+* Validated credit risk and machine learning models around credit default, stress testing and identity resolution for one of the top 3 banks in Hawaii. Prepared model review documentation.
+* Worked on validating multiple risk profile asset portfolios, based on Modern Portfolio Theory , for one of the top 10 US banks using univariate Monte Carlo Simulation based on forward looking CMAs along with Latin Hypercube Sampling and Variance reduction technique. Prepared model review documentation.
+
+
+  NLP Projects                                                                         Self                                                                       May2022-Current                 
+* Created a chatgpt chatbot based on GPT4 to work as AI tutor. I used pinecone vector database to store the indexed documents. Used langchain to efficiently implement it as a streamlit app.
+* Made an streamlit app on top of OpenAI GPT3 to extract transcript from any Youtube video and summarize in 10 points using prompt engineering.
+* Developed a streamlit app based on transformer based sentiment analysis model and deployed on AWS EC2 using Docker. Sentiment Analysis Streamlit app with Transformers using Docker on AWS EC2 | Complete Tutorial
+* Devleoped a Llama2 RAG based chatbot which uses retrieval augemented generation (RAG) using any webpage with support for chat history in Langchain. Further served it as RESTapi using FastAPI. Langchain Llama2 RAG chatbot with history | Fastapi
+
+
+  TAX Analytics                                                                         AB InBev                                                         Jan2022-May2023                       
+* Transform the existing manual process by codifying business rules and metrices to automate it which saved $4M in Taxes.
+* Used Azure devops to prepare the repository and make deployable and scalable solution.
+* Further developed PowerBI dashboard based on weekly data refresh and encompassing 5 geographies on top of the solution.
+
+
+  FX hedging using deep learning                                             AB InBev                                                          Jun2022-Sept2022                        
+* Provided a solution for making the decision of which derivative to use for hedging USD/BRL currency pair against the raw material price fluctuations over year.
+* Used tabular learning to choose between Options and Futures over weekly period based on market and macroeconomic variables.
+
+
+  Face Matching Algorithm Implementation                          Karza Technologies                                          Jan2020-Jan 2022                         
+* Implemented an algorithm for few-shot learning of faces for better metric learning, based on Resnet100 architecture and cosine based loss.
+* Reduced the training time by half by careful LR reduction technique and converging to state of art on GCP VM instance.
+* Also developed the logic for reviewNeeded tag , to bring in human intervention in 5% cases in which quality of image is too poor to be processed.
+* Further extended the evaluation dataset based on various factors that might effect the quality of match. 
+* Developed the whole codebase for deployment on AWS lambda and made low latency api servable solution.
+
+
+  Face Detection Implementation                                             Karza Technologies                                      May2020-April2021                         
+* Implemented retinaface face detection based on wider face dataset and developed whole codebase for AWS lambda based low latency  api servable solution.
+* Further made the model robust towards rotated faces, which isn’t tackled on the open source solutions.
+* Retrained the model for small faces with poor quality in KYC domain images and removal of holographic face.
+
+
+       APTOS 2019 Blindness Detection by Kaggle                                                                               
+* Created a model based on Efficientnet-B4 architecture to find the severity of diabetic retinopathy and scored in top 9%(i.e. 248/2943) on private leaderboard.
+* Preprocessed and cropped the eye images using OpenCV to reduce black area in image with the help of threshold,countour and minencosingcircle.
+* As the training data was very less ,used pretrained model on imagenet, pretrained to Diabetic Retinopathy 2015 data and APTOS 2019 to finetune for current use case.
+* I treated this problem as regression problem, and used metric MSE and Kappa score. I predicted by thresholding the real value with optimized threshold.
+* Also implemented Test time augmentation to improve generalization.
+Jigsaw Unintended Bias in Toxicity classification by Kaggle              
+* Created an ensemble of transformer based (BERT) models for toxicity classification and reducing unintended bias and it scored in top 10% in public leaderboard(i.e. 309/3167).
+* Implemented multi-task learning to improve generalization.
+* Implemented transfer learning on top of BERT-base with help of pytorch.
+* Implemented a custom made loss function i.e. a modified binary crossentropy loss
+* Implemented a custom dataloader to reduce training time.
+* Implemented various strategies for Learning rate reduction like mimicking single 2 epoch run by two 1 epoch run and learning rate annealing.
+ Rolling Element Bearing Life Prediction        
+* Prediction of life of single bearing based on condition monitoring using vibrational data and degradation model.
+* Created new features using feature engineering.
+* Leveraged Principal Component Analysis (PCA) for finding sensitive features.
+* Used support vector regression for prediction and grid search for hyperparameter selection.
+ACHIEVEMENTS
+* Got bronze medal in APTOS 2019 held by Kaggle.
+* Won Ranked 9th on leaderboard on HDFC Bank Machine Learning Hiring Challenge out of 6661.
+* Won 2nd prize in Analiticity , TECHNEX’17.
+* 108th Position, Jharkhand Combined Entrance Competitive Examination -2014. 
+  EXTRA CO-CURRICULARS
+* Event Head in COMET 17, held by Mechanical Engineering Society (MES) IIT (BHU), Varanasi.
+* Panel member of Aero Modelling Club, IIT (BHU), Varanasi and organised workshops for the same.
+* Co-coordinator of D’Aeroglisseur, TECHNEX-2016, the annual techno- management fest of IIT (BHU), Varanasi.
