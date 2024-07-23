@@ -72,7 +72,7 @@ if "chat_active" in st.session_state and st.session_state.chat_active:
         # Check if source_path is defined before using it
         if st.session_state.source_path is not None:
             # Process the query and get the response
-            response = process_query(input=prompt, source_path=st.session_state.source_path, source_type=processed_source_type)['answer']#.split(': ')[1]
+            response = process_query(input=prompt, source_path=st.session_state.source_path, source_type=processed_source_type)['answer'].split(': ')[-1]
             # Display assistant response and add to chat history
             with st.chat_message("assistant"):
                 st.markdown(response)
