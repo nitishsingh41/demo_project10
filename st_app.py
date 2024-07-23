@@ -1,5 +1,4 @@
 import streamlit as st
-import requests
 from io import BytesIO
 from chatbot import process_query
 
