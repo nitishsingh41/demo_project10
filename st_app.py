@@ -58,6 +58,7 @@ if st.sidebar.button("Upload and Start Chat"):
             st.session_state.chat_active = True  # Activate chat
         else:
             st.error("Please enter a valid website URL.")
+st.write('sp:', source_path, 'st:', source_type)
 
 # Display chat messages from history if chat is active
 if "chat_active" in st.session_state and st.session_state.chat_active:
