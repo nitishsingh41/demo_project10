@@ -191,3 +191,6 @@ def process_query(input: str, session_id='abc123', source_path='./resume.pdf', s
     return {"answer": response["answer"]}
 
 
+if __name__ == "__main__":
+  
+    pass
