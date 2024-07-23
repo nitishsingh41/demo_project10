@@ -3,7 +3,7 @@ import requests
 from io import BytesIO
 from app import process_query
 
-st.title("Candidate Chat Bot")
+st.title("Candidate Chatbot")
 
 # Create a sidebar for source selection and file upload
 st.sidebar.header("Upload Source")
@@ -81,7 +81,7 @@ if "chat_active" in st.session_state and st.session_state.chat_active:
         # Check if source_path is defined before using it
         if st.session_state.source_path is not None:
             # Simulate a response (replace with actual processing logic)
-            response = process_query(input=prompt, source_path=st.session_state.source_path, source_type=source_type)
+            response = process_query(input=prompt, source_path=st.session_state.source_path, source_type=source_type)['answer'].split(': ')[1]
             # Display assistant response in chat message container
             with st.chat_message("assistant"):
                 st.markdown(response)
