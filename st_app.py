@@ -75,6 +75,7 @@ if "chat_active" in st.session_state and st.session_state.chat_active:
         if source_type=='txt':
           source_type='text'
         # Simulate a response (replace with actual processing logic)
+        st.write('sp:',source_path,'st:',source_type)
         response = process_query(input=prompt,source_path=source_path, source_type=source_type)
         # Display assistant response in chat message container
         with st.chat_message("assistant"):
