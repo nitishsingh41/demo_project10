@@ -26,7 +26,8 @@ embed_model = HuggingFaceEmbeddings(
 )
 
 #download llama2 7B 
-os.system("wget -q https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q8_0.gguf?download=true -O llm.gguf")
+if not os.path.exists('./llm.gguf'):
+    os.system("wget -q https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q8_0.gguf?download=true -O llm.gguf")
 
 #initialize llm model using llama_cpp
 llm = LlamaCpp(
