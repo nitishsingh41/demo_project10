@@ -3,7 +3,7 @@ import requests
 from io import BytesIO
 from app import process_query
 
-st.title("PDF/TXT/Website Chat Bot")
+st.title("Candidate Chat Bot")
 
 # Create a sidebar for source selection and file upload
 st.sidebar.header("Upload Source")
