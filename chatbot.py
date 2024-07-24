@@ -129,7 +129,8 @@ def initialize_components(input: str, session_id: str, source_path: str, source_
             "the question. If you don't know the answer, say that you "
             "don't know. Keep the answer concise and very short and don't provide extra details. "
             #"Don't make additional queries or generate unsupported inferences."
-            "Please provide information without any follow-up questions."
+            #"Please provide information without any follow-up questions."
+            "Don't generate any follow-up questions."
             "\n\n{context}"
         )
         
