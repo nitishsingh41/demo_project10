@@ -105,11 +105,12 @@ def initialize_components(input: str, session_id: str, source_path: str, source_
 
         # Initialize history-aware retriever
         contextualize_q_system_prompt = (
-            "Given a chat history and the latest user question, "
-            "formulate a standalone question which can be understood "
-            "without the chat history. Do NOT answer the question, "
-            "just reformulate it if needed and otherwise return it as is."
-        )
+    "Given a chat history and the latest user question "
+    "which might reference context in the chat history, "
+    "formulate a standalone question which can be understood "
+    "without the chat history. Do NOT answer the question, "
+    "just reformulate it if needed and otherwise return it as is."
+)
         
         contextualize_q_prompt = ChatPromptTemplate.from_messages(
             [
@@ -125,18 +126,13 @@ def initialize_components(input: str, session_id: str, source_path: str, source_
 
         # Initialize question-answer chain
         system_prompt = (
-            #"You are an assistant which gives precise answers. "
-            "Strictly use the following pieces of retrieved context to answer "
-            "the question. If you don't know the answer, say that you "
-            "don't know. Keep the answer concise and very short and don't provide extra details. "
-            #"Please provide information without any follow-up questions."
-            "Don't generate any follow-up questions."
-            #"Answer the question by strictly using the provided context. "
-            #"Response should be concise and relevant to the question. "
-            #"If you don't know the answer, say that you don't know. "
-            #"Please provide information without any follow-up questions. "
-            "\n\n{context}"
-        )
+    "You are an assistant for question-answering tasks. "
+    "Use the following pieces of retrieved context to answer "
+    "the question. If you don't know the answer, say that you "
+    "don't know. Keep the answer concise."
+    "\n\n"
+    "{context}"
+)
         
         qa_prompt = ChatPromptTemplate.from_messages(
             [
