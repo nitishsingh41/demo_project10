@@ -126,16 +126,15 @@ def initialize_components(input: str, session_id: str, source_path: str, source_
         # Initialize question-answer chain
         system_prompt = (
             #"You are an assistant which gives precise answers. "
-            #"Strictly use the following pieces of retrieved context to answer "
-            #"the question. If you don't know the answer, say that you "
-            #"don't know. Keep the answer concise and very short and don't provide extra details. "
-            #"Don't make additional queries or generate unsupported inferences."
+            "Strictly use the following pieces of retrieved context to answer "
+            "the question. If you don't know the answer, say that you "
+            "don't know. Keep the answer concise and very short and don't provide extra details. "
             #"Please provide information without any follow-up questions."
-            #"Don't generate any follow-up questions."
-            "Answer the question by strictly using the provided context. "
-            "Response should be concise and relevant to the question. "
-            "If you don't know the answer, say that you don't know. "
-            "Please provide information without any follow-up questions. "
+            "Don't generate any follow-up questions."
+            #"Answer the question by strictly using the provided context. "
+            #"Response should be concise and relevant to the question. "
+            #"If you don't know the answer, say that you don't know. "
+            #"Please provide information without any follow-up questions. "
             "\n\n{context}"
         )
         
