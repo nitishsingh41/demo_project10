@@ -129,7 +129,7 @@ def initialize_components(input: str, session_id: str, source_path: str, source_
     "You are an assistant for question-answering tasks. "
     "Use the following pieces of retrieved context to answer "
     "the question. If you don't know the answer, say that you "
-    "don't know. Keep the answer concise."
+    "don't know. Keep the answer concise. Don't ask follow-up questions."
     "\n\n"
     "{context}"
 )
