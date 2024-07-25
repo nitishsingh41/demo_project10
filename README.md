@@ -5,7 +5,7 @@ It is based on langhchain and uses llama3.1.
 It can be used by streamlit frontend.
 
 ****Usage Instructions****
-1. You will need a gpu based instance,I have used Colab.
+1. You will need a gpu based instance,I have used Kaggle notebook.
 2. Clone the repo and change directory to demo_project/ .
 3. pip install -r requirements.txt
 4. Then run app.py file using "streamlit run app.py".
