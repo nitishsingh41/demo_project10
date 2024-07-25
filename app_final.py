@@ -69,7 +69,7 @@ if "api_key" in st.session_state:
     if st.sidebar.button("Upload and Start Chat"):
         handle_upload()
 
-        # Initialize the LLM and RAGChatbot only if API key is provided
+        # Initialize the LLM and RAGChatbot only if source path is set
         if st.session_state.source_path:
             llm = ChatGroq(
                 temperature=0,
@@ -88,6 +88,8 @@ if "api_key" in st.session_state:
 
             # Activate chat
             st.session_state.chat_active = True
+        else:
+            st.error("No source uploaded. Please upload a source file or enter a URL.")
 
 ## Display chat messages if chat is active
 if "chat_active" in st.session_state and st.session_state.chat_active:
