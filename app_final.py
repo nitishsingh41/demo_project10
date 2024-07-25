@@ -46,6 +46,20 @@ if "api_key" in st.session_state:
         st.session_state.messages = []
     if "source_path" not in st.session_state:
         st.session_state.source_path = None
+    if "rag_chatbot" not in st.session_state:
+        # Load embedding model
+        embed_model_id = "Alibaba-NLP/gte-large-en-v1.5"
+        device = 'cuda'
+        embed_model = EmbeddingModel(embed_model_id, device)
+
+        # Create RAG chatbot instance
+        llm = ChatGroq(
+            temperature=0,
+            model="llama3-70b-8192",
+            max_tokens=4000,
+            api_key=st.session_state.api_key  # Use the stored API key
+        )
+        st.session_state.rag_chatbot = RAGChatbot(llm, embed_model)
 
     ## Function to handle file uploads and start chat
     def handle_upload():
@@ -69,27 +83,8 @@ if "api_key" in st.session_state:
     if st.sidebar.button("Upload and Start Chat"):
         handle_upload()
 
-        # Initialize the LLM and RAGChatbot only if source path is set
-        if st.session_state.source_path:
-            llm = ChatGroq(
-                temperature=0,
-                model="llama3-70b-8192",
-                max_tokens=4000,
-                api_key=st.session_state.api_key  # Use the stored API key
-            )
-
-            # Load embedding model
-            embed_model_id = "Alibaba-NLP/gte-large-en-v1.5"
-            device = 'cuda'
-            embed_model = EmbeddingModel(embed_model_id, device)
-
-            # Create RAG chatbot instance
-            rag_chatbot = RAGChatbot(llm, embed_model)
-
-            # Activate chat
-            st.session_state.chat_active = True
-        else:
-            st.error("No source uploaded. Please upload a source file or enter a URL.")
+        # Activate chat
+        st.session_state.chat_active = True
 
 ## Display chat messages if chat is active
 if "chat_active" in st.session_state and st.session_state.chat_active:
@@ -107,9 +102,9 @@ if "chat_active" in st.session_state and st.session_state.chat_active:
         processed_source_type = 'text' if source_type == 'txt' else source_type
 
         # Check if source_path is defined and rag_chatbot is initialized
-        if st.session_state.source_path is not None and 'rag_chatbot' in locals():
+        if st.session_state.source_path is not None and 'rag_chatbot' in st.session_state:
             # Process the query using RAGChatbot
-            query_response = rag_chatbot.process_query(
+            query_response = st.session_state.rag_chatbot.process_query(
                 prompt,
                 session_id='abc123',  # You can replace 'abc123' with a dynamic session ID if needed
                 source_path=st.session_state.source_path,
