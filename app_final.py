@@ -50,7 +50,7 @@ if "api_key" in st.session_state:
         # Load embedding model
         embed_model_id = "Alibaba-NLP/gte-large-en-v1.5"
         device = 'cuda'
-        embed_model = EmbeddingModel(embed_model_id, device)
+        embed_model = EmbeddingModel(embed_model_id, device).model
 
         # Create RAG chatbot instance
         llm = ChatGroq(
