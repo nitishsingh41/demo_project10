@@ -1,6 +1,6 @@
 import streamlit as st
 from io import BytesIO
-from chatbot_final import RAGChatbot, EmbeddingModel
+from chatbot import RAGChatbot, EmbeddingModel
 from langchain_groq import ChatGroq
 
 ## Title of the application
