@@ -9,6 +9,8 @@ It can be used by streamlit frontend.
 2. Clone the repo and change directory to demo_project/ .
 3. pip install -r requirements.txt
 4. Then run app.py file using "streamlit run app.py".
+   
+Additional: One can run evaluation for RAG piple using evaluate_rag.py script
 
 
 
