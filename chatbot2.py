@@ -112,7 +112,16 @@ def initialize_components(input: str, session_id: str, source_path: str, source_
         
         # Initialize retriever
         retriever = vectorstore.as_retriever(search_kwargs={"k": 2})
+        
+        # Initialize store for session history
+        store = {}
+        
+        def get_session_history(session_id: str) -> BaseChatMessageHistory:
+            if session_id not in store:
+                store[session_id] = ChatMessageHistory()
+            return store[session_id]
 
+        
         # Initialize history-aware retriever with Llama 3 template
         contextualize_q_system_prompt = "Given a chat history and the latest user question, reformulate the question if needed to ensure it can be understood without the chat history. Do NOT answer the question."
         
@@ -154,14 +163,7 @@ def initialize_components(input: str, session_id: str, source_path: str, source_
 
         # Initialize RAG chain
         rag_chain = create_retrieval_chain(history_aware_retriever, question_answer_chain)
-        
-        # Initialize store for session history
-        store = {}
-        
-        def get_session_history(session_id: str) -> BaseChatMessageHistory:
-            if session_id not in store:
-                store[session_id] = ChatMessageHistory()
-            return store[session_id]
+
         
         # Initialize conversational RAG chain
         conversational_rag_chain = RunnableWithMessageHistory(
