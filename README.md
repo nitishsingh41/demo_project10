@@ -1,4 +1,4 @@
-# RAG Website Chatbot 
+# RAG Candidate Chatbot with history
 
 RAG chatbot for using pdf/txt/website as datasource.
 It is based on langhchain and uses llama3 70b. 
