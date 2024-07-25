@@ -5,7 +5,7 @@ It is based on langhchain and uses llama3.1.
 It can be used by streamlit frontend.
 
 ****Usage Instructions****
-1. You will need a gpu based instance,I have used Kaggle notebook.
+1. You will need a gpu based instance,I have used Kaggle notebook. Also you will need API key from GROQ as the llm being used is hosted there. This key will be inputted on after streamlit app runs.
 2. Clone the repo and change directory to demo_project/ .
 3. pip install -r requirements.txt
 4. Then run app.py file using "streamlit run app.py".
