@@ -30,6 +30,8 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 if "source_path" not in st.session_state:
     st.session_state.source_path = None
+if "api_key" not in st.session_state:
+    st.session_state.api_key = None  # Initialize API key in session state
 
 ## Function to handle file uploads and start chat
 def handle_upload():
@@ -53,31 +55,36 @@ def handle_upload():
 if st.sidebar.button("Upload and Start Chat"):
     handle_upload()
 
-    # Ask for API key after file upload
-    if st.session_state.source_path:
+    # Ask for API key after file upload if not already set
+    if st.session_state.source_path and st.session_state.api_key is None:
         api_key = st.sidebar.text_input("Enter GRO API Key:", type="password")
         
-        # Initialize the LLM and RAGChatbot only if API key is provided
+        # Store the API key in session state if provided
         if api_key:
-            llm = ChatGroq(
-                temperature=0,
-                model="llama3-70b-8192",
-                max_tokens=4000,
-                api_key=api_key  # Pass the API key to the model
-            )
-
-            # Load embedding model
-            embed_model_id = "Alibaba-NLP/gte-large-en-v1.5"
-            device = 'cuda'
-            embed_model = EmbeddingModel(embed_model_id, device)
-
-            # Create RAG chatbot instance
-            rag_chatbot = RAGChatbot(llm, embed_model)
-
-            # Activate chat
-            st.session_state.chat_active = True
+            st.session_state.api_key = api_key  # Store API key
+            st.success("API Key stored successfully.")
         else:
             st.warning("Please enter your API key to proceed.")
+
+    # Initialize the LLM and RAGChatbot only if API key is provided
+    if st.session_state.api_key:
+        llm = ChatGroq(
+            temperature=0,
+            model="llama3-70b-8192",
+            max_tokens=4000,
+            api_key=st.session_state.api_key  # Use the stored API key
+        )
+
+        # Load embedding model
+        embed_model_id = "Alibaba-NLP/gte-large-en-v1.5"
+        device = 'cuda'
+        embed_model = EmbeddingModel(embed_model_id, device)
+
+        # Create RAG chatbot instance
+        rag_chatbot = RAGChatbot(llm, embed_model)
+
+        # Activate chat
+        st.session_state.chat_active = True
 
 ## Display chat messages if chat is active
 if "chat_active" in st.session_state and st.session_state.chat_active:
