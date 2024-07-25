@@ -18,7 +18,7 @@ from ragas.metrics import (
 # Initialize the language model
 llm = ChatGroq(
     temperature=0,
-    model="llama3-8b-8192",
+    model="llama-3.1-70b-versatile",
     max_tokens=4000,
     api_key="",
     timeout=2400,
