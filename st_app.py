@@ -1,6 +1,6 @@
 import streamlit as st
 from io import BytesIO
-from chatbot import process_query
+from chatbot2 import process_query
 
 # Title of the application
 st.title("Candidate Chatbot")
