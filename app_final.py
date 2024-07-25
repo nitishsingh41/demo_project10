@@ -11,7 +11,7 @@ st.sidebar.header("Configuration")
 
 # Ask for API key first
 if "api_key" not in st.session_state:
-    api_key = st.sidebar.text_input("Enter GRO API Key:", type="password")
+    api_key = st.sidebar.text_input("Enter GROQ API Key:", type="password")
     
     # Store the API key in session state if provided
     if api_key:
