@@ -113,6 +113,6 @@ if "chat_active" in st.session_state and st.session_state.chat_active:
             # Display assistant response and add to chat history
             with st.chat_message("assistant"):
                 st.markdown(query_response['answer'])
-            st.session_state.messages.append({"role": "assistant", "content": query_response})
+            st.session_state.messages.append({"role": "assistant", "content": query_response['answer']})
         else:
             st.error("No valid source available for processing or API key is missing.")
