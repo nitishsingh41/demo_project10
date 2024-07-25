@@ -12,11 +12,12 @@ from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_groq import ChatGroq
-from langchain_chroma import Chroma
 
-# Workaround for sqlite3
+
+# Workaround for sqlite3 so that Chroma don't throw version error.
 __import__("pysqlite3")
 sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
+from langchain_chroma import Chroma
 
 
 class EmbeddingModel:
