@@ -55,7 +55,7 @@ if "api_key" in st.session_state:
         # Create RAG chatbot instance
         llm = ChatGroq(
             temperature=0,
-            model="llama-3.1-8b-instant",
+            model="llama3-70b-8192",
             max_tokens=4000,
             api_key=st.session_state.api_key  # Use the stored API key
         )
