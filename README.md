@@ -1,7 +1,7 @@
 # RAG Website Chatbot 
 
 RAG chatbot for using pdf/txt/website as datasource.
-It is based on langhchain and uses llama3.1. 
+It is based on langhchain and uses llama3 70b. 
 It can be used by streamlit frontend.
 
 ****Usage Instructions****
